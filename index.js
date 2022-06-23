@@ -12,8 +12,8 @@ const users = [
 ]
 
 const notes = [
-    { id: 1, title: '学习 Express', content: '反人性' },
-    { id: 2, title: '学习 Node.js', content: '厉害的人反人性' },
+    { id: 1, title: '学习 Express', content: '<p>反人性</p>', isPublic: true },
+    { id: 2, title: '学习 Node.js', content: '</p>厉害的人反人性</p>', isPublic: false },
 ]
 
 app.get('/users', (req, res) => {
@@ -66,7 +66,45 @@ app.delete('/users/:id', (req, res) => {
 })
 
 app.get('/notes', (req, res) => {
-    res.json(notes)
+    const q = req.query.q || ''
+    const isPublic = req.query.isPublic ? Boolean(+req.query.isPublic) : null
+    const page = +req.query.page || 1
+    const perPage = +req.query.perPage || 10
+
+    const result = notes
+        .filter(n => n.title.includes(q) || n.content.includes(q))
+        .filter(n => {
+            if (isPublic === null) return true
+            return n.isPublic === isPublic
+        })
+
+    res.json({
+        total: result.length,
+        data: result.slice(perPage * (page - 1), perPage * page),
+    })
+})
+
+app.get('/notes/:id', (req, res) => {
+    const id = +req.params.id
+    const note = notes.find(n => n.id === id)
+    res.json(note)
+})
+
+app.put('/notes/:id', (req, res) => {
+    const id = +req.params.id
+    const index = notes.findIndex(n => n.id === id)
+    notes[index] = {
+        ...req.body,
+        id,
+    }
+    res.json(notes[index])
+})
+
+app.delete('/notes/:id', (req, res) => {
+    const id = +req.params.id
+    const index = notes.findIndex(n => n.id === id)
+    notes.splice(index, 1)
+    res.json()
 })
 
 app.listen(5555)
