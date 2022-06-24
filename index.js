@@ -37,6 +37,14 @@ app.get('/users', (req, res) => {
     const perPage = +req.query.perPage || 10
     const q = req.query.q || ''
     const sex = +req.query.sex || null
+    const token = (req.headers.authorization || '').slice(7) // 'Bearer xxx'
+
+    const index = users.findIndex(u => u.token === token)
+    if (index === -1) {
+        return res.status(401).json({
+            message: '请登录',
+        })
+    }
 
     const result = users
         .filter(user => user.username.includes(q))
