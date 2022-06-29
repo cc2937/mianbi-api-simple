@@ -16,6 +16,41 @@ const notes = [
     { id: 2, title: '学习 Node.js', content: '</p>厉害的人反人性</p>', isPublic: false },
 ]
 
+const banners = [
+    { id: 1, url: 'https://tva1.sinaimg.cn/large/e6c9d24ely1h3o4w6hnk9j21te0oq0zi.jpg' },
+    { id: 2, url: 'https://tva1.sinaimg.cn/large/e6c9d24ely1h3o4w9ijvxj21sw0okte0.jpg' },
+    { id: 3, url: 'https://tva1.sinaimg.cn/large/e6c9d24ely1h3o4wc2rvbj21ga0lkjup.jpg' },
+]
+
+const courses = [
+    { id: 1, title: '面壁计划 1', pic: 'https://img2.doubanio.com/view/subject/l/public/s34214722.jpg' },
+    { id: 2, title: '面壁计划 2', pic: 'https://img1.doubanio.com/view/subject/l/public/s34196508.jpg' },
+    { id: 3, title: '面壁计划 3', pic: 'https://img1.doubanio.com/view/subject/l/public/s34215218.jpg' },
+    { id: 4, title: '面壁计划 4', pic: 'https://img3.doubanio.com/view/subject/l/public/s34212130.jpg' },
+    { id: 5, title: '面壁计划 5', pic: 'https://img1.doubanio.com/view/subject/l/public/s34187887.jpg' },
+    { id: 6, title: '面壁计划 6', pic: 'https://img1.doubanio.com/view/subject/l/public/s33956867.jpg' },
+    { id: 7, title: '面壁计划 7', pic: 'https://img2.doubanio.com/view/subject/l/public/s33944153.jpg' },
+    { id: 8, title: '面壁计划 8', pic: 'https://img2.doubanio.com/view/subject/l/public/s34072342.jpg' },
+    { id: 9, title: '面壁计划 9', pic: 'https://img9.doubanio.com/view/subject/l/public/s34008354.jpg' },
+]
+
+app.get('/courses', (req, res) => {
+    const page = +req.query.page || 1
+    const perPage = +req.query.perPage || 4
+
+    const result = courses
+        .slice(perPage * (page - 1), perPage * page)
+
+    res.json({
+        total: courses.length,
+        data: result,
+    })
+})
+
+app.get('/banners', (req, res) => {
+    res.json(banners)
+})
+
 app.post('/auth/login', (req, res) => {
     const { username, password } = req.body
     const index = users.findIndex(u => u.username === username && u.password === password)
