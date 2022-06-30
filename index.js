@@ -34,6 +34,114 @@ const courses = [
     { id: 9, title: '面壁计划 9', pic: 'https://img9.doubanio.com/view/subject/l/public/s34008354.jpg' },
 ]
 
+const punches = [
+    {
+        id: 1,
+        user: {
+            id: 10,
+            nick: '小猫',
+            avatar: 'https://tva1.sinaimg.cn/large/e6c9d24egy1h36ok2cgx6j20py0q2jsy.jpg',
+            status: '今天不学习，明天就哭了',
+        },
+        content: '今天的收获是：只看不做是学不会的，看 100 遍都学不会，只有做，不断做，不断思考，不断找老师提问交流得到反馈，才能学会！刘思毅，加油加油加油！！！',
+        pics: [
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+        ],
+        createdAt: '2022-06-30T20:00:00.012+0800',
+        likes: [
+            { id: 1, nick: '华晨' },
+            { id: 2, nick: '小龙龙' },
+        ],
+        reviews: [
+            {
+                id: 1,
+                user: { id: 3, nick: '大龙' },
+                content: '小龙，加油！',
+            },
+            {
+                id: 2,
+                user: { id: 3, nick: '龙王' },
+                content: '小龙，加油！！',
+            },
+        ],
+    },
+    {
+        id: 2,
+        user: {
+            id: 10,
+            nick: '老猫',
+            avatar: 'https://tva1.sinaimg.cn/large/e6c9d24egy1h36ok2cgx6j20py0q2jsy.jpg',
+            status: '',
+        },
+        content: '今日是今日毕',
+        pics: [
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+        ],
+        createdAt: '2022-06-30T16:00:00.012+0800',
+        likes: [],
+        reviews: [
+            {
+                id: 1,
+                user: { id: 3, nick: '大龙' },
+                content: '小龙，加油！',
+            },
+            {
+                id: 2,
+                user: { id: 3, nick: '龙王' },
+                content: '小龙，加油！！',
+            },
+        ],
+    },
+    {
+        id: 3,
+        user: {
+            id: 10,
+            nick: '小猫',
+            avatar: 'https://tva1.sinaimg.cn/large/e6c9d24egy1h36ok2cgx6j20py0q2jsy.jpg',
+            status: '今天不学习，明天就哭了',
+        },
+        content: '今天的收获是：只看不做是学不会的，看 100 遍都学不会，只有做，不断做，不断思考，不断找老师提问交流得到反馈，才能学会！刘思毅，加油加油加油！！！',
+        pics: [
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+            'https://tva1.sinaimg.cn/large/e6c9d24ely1h3qa6yhzw8j21410u0wgy.jpg',
+        ],
+        createdAt: '2022-06-30T06:00:00.012+0800',
+        likes: [
+            { id: 1, nick: '华晨' },
+            { id: 2, nick: '小龙龙' },
+        ],
+        reviews: [],
+    },
+]
+
+app.get('/punches', (req, res) => {
+    const page = +req.query.page || 1
+    const perPage = +req.query.perPage || 2
+
+    const result = punches
+        .slice(perPage * (page - 1), perPage * page)
+
+    res.json({
+        total: punches.length,
+        data: result,
+    })
+})
+
 app.get('/courses', (req, res) => {
     const page = +req.query.page || 1
     const perPage = +req.query.perPage || 4
