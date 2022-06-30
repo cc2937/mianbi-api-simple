@@ -89,12 +89,12 @@ const punches = [
         likes: [],
         reviews: [
             {
-                id: 1,
+                id: 3,
                 user: { id: 3, nick: '大龙' },
                 content: '小龙，加油！',
             },
             {
-                id: 2,
+                id: 4,
                 user: { id: 3, nick: '龙王' },
                 content: '小龙，加油！！',
             },
