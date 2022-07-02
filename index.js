@@ -134,6 +134,24 @@ const punches = [
 
 app.use('/public', express.static('./public'))
 
+app.post('/punches', (req, res) => {
+    const body = req.body
+    punches.unshift({
+        id: Math.random(),
+        user: {
+            id: 10,
+            nick: '小猫',
+            avatar: 'https://tva1.sinaimg.cn/large/e6c9d24egy1h36ok2cgx6j20py0q2jsy.jpg',
+            status: '今天不学习，明天就哭了',
+        },
+        ...body,
+        createdAt: '2022-06-30T20:00:00.012+0800',
+        likes: [],
+        reviews: [],
+    })
+    res.json()
+})
+
 app.post('/upload', upload.single('file'), (req, res) => {
     res.json({
         url: `http://192.168.0.105:5555/${req.file.path}`,
