@@ -1,5 +1,8 @@
 const express = require('express')
 const cors = require('cors')
+const multer = require('multer')
+
+const upload = multer({ dest: './public' })
 
 const app = express()
 
@@ -128,6 +131,14 @@ const punches = [
         reviews: [],
     },
 ]
+
+app.use('/public', express.static('./public'))
+
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.json({
+        url: `http://192.168.0.105:5555/${req.file.path}`,
+    })
+})
 
 app.get('/punches', (req, res) => {
     const page = +req.query.page || 1
